@@ -1,38 +1,32 @@
-﻿<!DOCTYPE html>
+﻿<!DOCTYPE html><html lang="en" xmlns="http://www.w3.org/1999/xhtml"><head><meta charset="utf-8"><link rel="icon" type="image/png" href="/public/favicon.ico"><meta name="viewport" content="width=device-width,initial-scale=1"><link rel="stylesheet" href="/styles/global.css"><meta name="description" content="Writing code is simple, it is so simple that it is analogous to talking! You know that even babies can talk, but on the other hand only few privilleged individuals know importance of each letter, it's history and so on. That's why we a good software developers must dive into the very inner core of computer and touch the logic gates with bare hands to finally feel the code pulsating as it runs! That's the spirit."><title>Nitugard</title><script>window.onload = function () {
+            var toc = "";
+            var level = 0;
+            console.log(document.getElementById("contents").innerHTML);
+            document.getElementById("contents").innerHTML =
+                document.getElementById("contents").innerHTML.replace(
+                    /<h([\d \"\=A-z]+)>([^<]+)<\/h([\d])>/gi,
+                    function (str, openLevel, titleText, closeLevel) {
+                        console.log(titleText);
+ 
+                        if (openLevel > level) {
+                            toc += (new Array(openLevel - level + 1)).join("<ul>");
+                        } else if (openLevel < level) {
+                            toc += (new Array(level - openLevel + 1)).join("</ul>");
+                        }
 
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
-<head>
-    <meta charset="utf-8" />
+                        level = parseInt(openLevel);
 
-    <link rel="icon" type="image/png" href="/public/favicon.ico" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="/styles/global.css">
-    <meta name="description" content="Hobby project" />
-    <title>Nitugard</title>
-    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+                        var anchor = titleText.replace(/ /g, "_");
+                        toc += "<li><a href=\"#" + anchor + "\">" + titleText
+                            + "</a></li>";
 
-</head>
-<body class="markdown-body">
-    <div class="header">
-        <img src="/public/avatar.png" alt="avatar" class="headerImage"></img>
-        <h1>
-            <a href="/index.html">Dragutin Sredojevic</a>
-        </h1>
-    </div>
-    <hr />
-    <h2>Architecture of the Computer</h2>
-    <p>2020-29-11</p>
+                        return str;
+                    }
+                );
 
-    Hobby project
-    <hr />
-    <div></div>
-    <hr />
-    <h3><a href="/index.html">Back</a></h3>
-    <hr />
-    <footer>
-        <div>
-            @Copyright <b>Nitugard</b> All Rights Reserved.
-        </div>
-    </footer>
-</body>
-</html>
+            if (level) {
+                toc += (new Array(level + 1)).join("</ul>");
+            }
+            console.log(toc);
+            document.getElementById("toc").innerHTML += toc;
+        };</script><script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script></head><body class="markdown-body"><div class="header"><img src="/public/avatar.png" alt="avatar" class="headerImage"><h1><a href="/index.html">Dragutin Sredojevic</a></h1></div><hr><h2>Architecture of the Computer</h2>2019-2-01<br>Writing code is simple, it is so simple that it is analogous to talking! You know that even babies can talk, but on the other hand only few privilleged individuals know importance of each letter, it's history and so on. That's why we a good software developers must dive into the very inner core of computer and touch the logic gates with bare hands to finally feel the code pulsating as it runs! That's the spirit.<hr><h3>Table of contents:</h3><div id="toc"></div><hr><div id="contents"></div><hr><h3><a href="/index.html">Back</a></h3><hr><footer><div>@Copyright <b>Nitugard</b> All Rights Reserved.</div></footer></body></html>

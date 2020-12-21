@@ -1,49 +1,32 @@
-﻿<!DOCTYPE html>
+﻿<!DOCTYPE html><html lang="en" xmlns="http://www.w3.org/1999/xhtml"><head><meta charset="utf-8"><link rel="icon" type="image/png" href="/public/favicon.ico"><meta name="viewport" content="width=device-width,initial-scale=1"><link rel="stylesheet" href="/styles/global.css"><meta name="description" content="Primary purpose for writing this article was to try and prolong loss of information as long as possible. You may help and even memorize few! "><title>Nitugard</title><script>window.onload = function () {
+            var toc = "";
+            var level = 0;
+            console.log(document.getElementById("contents").innerHTML);
+            document.getElementById("contents").innerHTML =
+                document.getElementById("contents").innerHTML.replace(
+                    /<h([\d \"\=A-z]+)>([^<]+)<\/h([\d])>/gi,
+                    function (str, openLevel, titleText, closeLevel) {
+                        console.log(titleText);
+ 
+                        if (openLevel > level) {
+                            toc += (new Array(openLevel - level + 1)).join("<ul>");
+                        } else if (openLevel < level) {
+                            toc += (new Array(level - openLevel + 1)).join("</ul>");
+                        }
 
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
-<head>
-    <meta charset="utf-8" />
+                        level = parseInt(openLevel);
 
-    <link rel="icon" type="image/png" href="/public/favicon.ico" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="/styles/global.css">
-    <meta name="description" content="Primary purpose for writing this article was to try and prolong loss of information as long as possible. You may help and even memorize few! " />
-    <title>Nitugard</title>
-    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+                        var anchor = titleText.replace(/ /g, "_");
+                        toc += "<li><a href=\"#" + anchor + "\">" + titleText
+                            + "</a></li>";
 
-</head>
-<body class="markdown-body">
-    <div class="header">
-        <img src="/public/avatar.png" alt="avatar" class="headerImage"></img>
-        <h1>
-            <a href="/index.html">Dragutin Sredojevic</a>
-        </h1>
-    </div>
-    <hr />
-    <h2>Quotes</h2>
-    <p>2000-00-00</p>
+                        return str;
+                    }
+                );
 
-    Primary purpose for writing this article was to try and prolong loss of information as long as possible. You may help and even memorize few! 
-    <hr />
-    <div><h1 id="computer">Computer</h1>
-<ol>
-<li>There are 10 types of people in the world;
-those that understand binary and those that
-don&#39;t.</li>
-<li>Warning, keyboard not found. Press enter
-to continue. </li>
-<li>I would love to change the world, but they
-won&#39;t give me the source code.</li>
-<li></li>
-</ol>
-</div>
-    <hr />
-    <h3><a href="/index.html">Back</a></h3>
-    <hr />
-    <footer>
-        <div>
-            @Copyright <b>Nitugard</b> All Rights Reserved.
-        </div>
-    </footer>
-</body>
-</html>
+            if (level) {
+                toc += (new Array(level + 1)).join("</ul>");
+            }
+            console.log(toc);
+            document.getElementById("toc").innerHTML += toc;
+        };</script><script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script></head><body class="markdown-body"><div class="header"><img src="/public/avatar.png" alt="avatar" class="headerImage"><h1><a href="/index.html">Dragutin Sredojevic</a></h1></div><hr><h2>Quotes</h2>2000-1-1<br>Primary purpose for writing this article was to try and prolong loss of information as long as possible. You may help and even memorize few!<hr><h3>Table of contents:</h3><div id="toc"></div><hr><div id="contents"><h1 id="literature">Literature</h1><ol><li>Doubt thou the stars are fire,<br>Doubt that the sun doth move,<br>Doubt truth to be a liar,<br>But never doubt I love. - William S.</li></ol><h1 id="computer">Computer</h1><ol><li>There are 10 types of people in the world; those that understand binary and those that don&#39;t.</li><li>Warning, keyboard not found. Press enter to continue.</li><li>I would love to change the world, but they won&#39;t give me the source code.</li><li></li></ol></div><hr><h3><a href="/index.html">Back</a></h3><hr><footer><div>@Copyright <b>Nitugard</b> All Rights Reserved.</div></footer></body></html>

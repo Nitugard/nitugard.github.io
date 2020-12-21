@@ -1,0 +1,32 @@
+﻿<!DOCTYPE html><html lang="en" xmlns="http://www.w3.org/1999/xhtml"><head><meta charset="utf-8"><link rel="icon" type="image/png" href="/public/favicon.ico"><meta name="viewport" content="width=device-width,initial-scale=1"><link rel="stylesheet" href="/styles/global.css"><meta name="description" content=""><title>Nitugard</title><script>window.onload = function () {
+            var toc = "";
+            var level = 0;
+            console.log(document.getElementById("contents").innerHTML);
+            document.getElementById("contents").innerHTML =
+                document.getElementById("contents").innerHTML.replace(
+                    /<h([\d \"\=A-z]+)>([^<]+)<\/h([\d])>/gi,
+                    function (str, openLevel, titleText, closeLevel) {
+                        console.log(titleText);
+ 
+                        if (openLevel > level) {
+                            toc += (new Array(openLevel - level + 1)).join("<ul>");
+                        } else if (openLevel < level) {
+                            toc += (new Array(level - openLevel + 1)).join("</ul>");
+                        }
+
+                        level = parseInt(openLevel);
+
+                        var anchor = titleText.replace(/ /g, "_");
+                        toc += "<li><a href=\"#" + anchor + "\">" + titleText
+                            + "</a></li>";
+
+                        return str;
+                    }
+                );
+
+            if (level) {
+                toc += (new Array(level + 1)).join("</ul>");
+            }
+            console.log(toc);
+            document.getElementById("toc").innerHTML += toc;
+        };</script><script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script></head><body class="markdown-body"><div class="header"><img src="/public/avatar.png" alt="avatar" class="headerImage"><h1><a href="/index.html">Dragutin Sredojevic</a></h1></div><hr><h2>Mechanical elements</h2>2020-12-15<br><hr><h3>Table of contents:</h3><div id="toc"></div><hr><div id="contents"><h1 id="introduction">Introduction</h1><h1 id="bearings">Bearings</h1><p>Bearings support shafts and axles by reducing their motion, radial and/or axial, while better defining their position.</p><ol><li>Friction bearings</li><li>Rolling bearings</li><li>Magnetic bearings</li></ol><p>Lubricated bearings offer protection from:</p><ol><li>Excess friction</li><li>Inpurities</li><li>Corrosion</li><li>Noise, vibration</li><li>High temperatures</li></ol><p><strong>Fluid bearings</strong> are bearings in which the load is supported by a thin layer of rapidly moving pressurized liquid or gas between the bearing surfaces.</p><p>They can be broadly classified into two types: fluid dynamic bearings (also known as hydrodynamic bearings) and hydrostatic bearings.</p><h2 id="bearing-estimate">Bearing estimate</h2><h3 id="friction-bearings">Friction bearings</h3><p>Depending on the shaft torque:</p><ol><li>Small speed &#92;&#40;v&#32;&#60;&#32;&#48;&#46;&#49;&#32;&#92;frac{m}{s}&#32;p&#95;{sr}&#32;&#92;leq&#32;p&#95;{doz}&#44;&#32;p&#95;{sr}&#61;&#92;frac{F&#95;r}{A}&#44;&#32;p&#95;{sr}&#61;&#92;frac{F&#95;r}{bd}&#92;&#41;.</li><li>Large speed &#92;&#40;v&#32;&#62;&#32;&#48;&#46;&#49;&#32;&#92;frac{m}{s}&#92;&#41; &#92;&#40;pv&#32;&#92;leq&#40;pv&#41;&#95;{doz}&#44;&#32;v&#61;&#92;omega&#32;r&#92;&#41;</li></ol><h3 id="rolling-bearings">Rolling bearings</h3></div><hr><h3><a href="/index.html">Back</a></h3><hr><footer><div>@Copyright <b>Nitugard</b> All Rights Reserved.</div></footer></body></html>

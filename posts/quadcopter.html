@@ -1,68 +1,32 @@
-﻿<!DOCTYPE html>
+﻿<!DOCTYPE html><html lang="en" xmlns="http://www.w3.org/1999/xhtml"><head><meta charset="utf-8"><link rel="icon" type="image/png" href="/public/favicon.ico"><meta name="viewport" content="width=device-width,initial-scale=1"><link rel="stylesheet" href="/styles/global.css"><meta name="description" content="Hobby project"><title>Nitugard</title><script>window.onload = function () {
+            var toc = "";
+            var level = 0;
+            console.log(document.getElementById("contents").innerHTML);
+            document.getElementById("contents").innerHTML =
+                document.getElementById("contents").innerHTML.replace(
+                    /<h([\d \"\=A-z]+)>([^<]+)<\/h([\d])>/gi,
+                    function (str, openLevel, titleText, closeLevel) {
+                        console.log(titleText);
+ 
+                        if (openLevel > level) {
+                            toc += (new Array(openLevel - level + 1)).join("<ul>");
+                        } else if (openLevel < level) {
+                            toc += (new Array(level - openLevel + 1)).join("</ul>");
+                        }
 
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
-<head>
-    <meta charset="utf-8" />
+                        level = parseInt(openLevel);
 
-    <link rel="icon" type="image/png" href="/public/favicon.ico" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="/styles/global.css">
-    <meta name="description" content="Hobby project" />
-    <title>Nitugard</title>
-    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+                        var anchor = titleText.replace(/ /g, "_");
+                        toc += "<li><a href=\"#" + anchor + "\">" + titleText
+                            + "</a></li>";
 
-</head>
-<body class="markdown-body">
-    <div class="header">
-        <img src="/public/avatar.png" alt="avatar" class="headerImage"></img>
-        <h1>
-            <a href="/index.html">Dragutin Sredojevic</a>
-        </h1>
-    </div>
-    <hr />
-    <h2>The Quadcopter Project</h2>
-    <p>2017-06-09</p>
+                        return str;
+                    }
+                );
 
-    Hobby project
-    <hr />
-    <div><h1 id="quadcopter">Quadcopter</h1>
-<p><img src="/public/assets/quadcopter/quadcopter.jpg" alt="Quadcopter"></p>
-<p>I spent twenty years bound to earth, walking, running and walking some more. Eventually I got tired. I sat down and decided to build something that won&#39;t share the same faith! The quadcopter project was born. Atleast this is my part of the story, so bare with me. </p>
-<p><em>The Quadcopter Project was not cheap, had lots of beginner mistakes, but the end result was worth it!</em></p>
-<h2 id="flying-101">Flying 101</h2>
-<p>Having no prior experience this project was nearly destined to fail. Alas, I had faith and motivation which gave me the strength to overcome every mistake I made. But before I allowed myself to make mistakes, I spent few weeks researching this topic, since like I said I had no prior experience in anything related to flying. <em>Note that this project was finished while I was still in the high school!</em><br></p>
-<p>Getting the parts that eventually fit together was not that difficult thanks to the global standardization of the manufactoring process, so even a teenger could do that! The toughest part was balancing the budget and choosing the most optimal parts - this is where I spent my time the most while researching.</p>
-<p> Different combinations of motors, propellers, batteries and frames would yield different flight times. If you add camera and other fancy equipment into the mix the flight times would drop down drastically mostly proportional to the weight added. Supporting the newly added weight meant stronger motors, bigger propelers which implied larger battery to support it and again this implied that the frame size eventually would have to increase as well as the cost! This leads us to the next topic:</p>
-<h2 id="the-law-of-diminishing-return">The law of diminishing return</h2>
-<p>The law of diminishing return states that in the production system beyond some point the output will start to decreasae as we increase input.</p>
-<p><img src="/public/assets/quadcopter/dim-return.jpeg" alt="Quadcopter"></p>
-<p>This law while mostly applied in economics could also be applied in our case.
-While trying for example to get the highest flight times possible while we only vary one part, ie. propellers. At some point buying larger propellers will result in lower flight times! Bigger is not always better.</p>
-<p>The key here is knowing when to stop. </p>
-<h2 id="parts">Parts</h2>
-<ol>
-<li>TAROT 650 Carbon Fiber Frame x 1</li>
-<li>T-Motors x 4</li>
-<li>Turnigy Graphene x 1 </li>
-<li>Flight Controller x 1</li>
-</ol>
-<h2 id="putting-it-all-together">Putting it all together</h2>
-<p>Yay! The parts have arrived after few months of waiting. Now all the fun can begin. Connecting the cables, soldering, and searching for that one missing screw are some of the stuff you&#39;ll find yourself enjoying (with a bit of sarcasm).</p>
-<p>If you got the right parts, as I somehow did on the first try. Then this process is quite easy. Unless...</p>
-<p>You have that luck to accidently short circuit some of the components multiple times as you try to do some weight cutting.</p>
-<h2 id="result">Result</h2>
-<p>The test run lasted for about ~28 minutes, this is without camera and with GPS.
-Satisfaction and experience I got while working on this project is unmesuarable (probably because there is no way to properly quantify it).  </p>
-<h2 id="pictures">Pictures</h2>
-<p><img src="/public/assets/quadcopter/flying.jpg" alt="Quadcopter First Flight"></p>
-</div>
-    <hr />
-    <h3><a href="/index.html">Back</a></h3>
-    <hr />
-    <footer>
-        <div>
-            @Copyright <b>Nitugard</b> All Rights Reserved.
-        </div>
-    </footer>
-</body>
-</html>
+            if (level) {
+                toc += (new Array(level + 1)).join("</ul>");
+            }
+            console.log(toc);
+            document.getElementById("toc").innerHTML += toc;
+        };</script><script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script></head><body class="markdown-body"><div class="header"><img src="/public/avatar.png" alt="avatar" class="headerImage"><h1><a href="/index.html">Dragutin Sredojevic</a></h1></div><hr><h2>The Quadcopter Project</h2>2017-6-09<br>Hobby project<hr><h3>Table of contents:</h3><div id="toc"></div><hr><div id="contents"><h1 id="quadcopter">Quadcopter</h1><p><img src="/public/assets/quadcopter/quadcopter.jpg" alt="Quadcopter"></p><p>I spent twenty years bound to earth, walking, running and walking some more. Eventually I got tired. I sat down and decided to build something that won&#39;t share the same faith! The quadcopter project was born. Atleast this is my part of the story, so bare with me.</p><p><em>The Quadcopter Project was not cheap, had lots of beginner mistakes, but the end result was worth it!</em></p><h2 id="flying-101">Flying 101</h2><p>Having no prior experience this project was nearly destined to fail. Alas, I had faith and motivation which gave me the strength to overcome every mistake I made. But before I allowed myself to make mistakes, I spent few weeks researching this topic, since like I said I had no prior experience in anything related to flying. <em>Note that this project was finished while I was still in the high school!</em><br></p><p>Getting the parts that eventually fit together was not that difficult thanks to the global standardization of the manufactoring process, so even a teenger could do that! The toughest part was balancing the budget and choosing the most optimal parts - this is where I spent my time the most while researching.</p><p>Different combinations of motors, propellers, batteries and frames would yield different flight times. If you add camera and other fancy equipment into the mix the flight times would drop down drastically mostly proportional to the weight added. Supporting the newly added weight meant stronger motors, bigger propelers which implied larger battery to support it and again this implied that the frame size eventually would have to increase as well as the cost! This leads us to the next topic:</p><h2 id="the-law-of-diminishing-return">The law of diminishing return</h2><p>The law of diminishing return states that in the production system beyond some point the output will start to decreasae as we increase input.</p><p><img src="/public/assets/quadcopter/dim-return.jpeg" alt="Quadcopter"></p><p>This law while mostly applied in economics could also be applied in our case. While trying for example to get the highest flight times possible while we only vary one part, ie. propellers. At some point buying larger propellers will result in lower flight times! Bigger is not always better.</p><p>The key here is knowing when to stop.</p><h2 id="parts">Parts</h2><ol><li>TAROT 650 Carbon Fiber Frame x 1</li><li>T-Motors x 4</li><li>Turnigy Graphene x 1</li><li>Flight Controller x 1</li></ol><h2 id="putting-it-all-together">Putting it all together</h2><p>Yay! The parts have arrived after few months of waiting. Now all the fun can begin. Connecting the cables, soldering, and searching for that one missing screw are some of the stuff you&#39;ll find yourself enjoying (with a bit of sarcasm).</p><p>If you got the right parts, as I somehow did on the first try. Then this process is quite easy. Unless...</p><p>You have that luck to accidently short circuit some of the components multiple times as you try to do some weight cutting.</p><h2 id="result">Result</h2><p>The test run lasted for about ~28 minutes, this is without camera and with GPS. Satisfaction and experience I got while working on this project is unmesuarable (probably because there is no way to properly quantify it).</p><h2 id="pictures">Pictures</h2><p><img src="/public/assets/quadcopter/flying.jpg" alt="Quadcopter First Flight"></p></div><hr><h3><a href="/index.html">Back</a></h3><hr><footer><div>@Copyright <b>Nitugard</b> All Rights Reserved.</div></footer></body></html>

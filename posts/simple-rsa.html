@@ -1,0 +1,104 @@
+﻿<!DOCTYPE html><html lang="en" xmlns="http://www.w3.org/1999/xhtml"><head><meta charset="utf-8"><link rel="icon" type="image/png" href="/public/favicon.ico"><meta name="viewport" content="width=device-width,initial-scale=1"><link rel="stylesheet" href="/styles/global.css"><meta name="description" content="RSA (Rivest–Shamir–Adleman) is an algorithm used by modern computers to encrypt and decrypt messages. It is an asymmetric cryptographic algorithm."><title>Nitugard</title><script>window.onload = function () {
+            var toc = "";
+            var level = 0;
+            console.log(document.getElementById("contents").innerHTML);
+            document.getElementById("contents").innerHTML =
+                document.getElementById("contents").innerHTML.replace(
+                    /<h([\d \"\=A-z]+)>([^<]+)<\/h([\d])>/gi,
+                    function (str, openLevel, titleText, closeLevel) {
+                        console.log(titleText);
+ 
+                        if (openLevel > level) {
+                            toc += (new Array(openLevel - level + 1)).join("<ul>");
+                        } else if (openLevel < level) {
+                            toc += (new Array(level - openLevel + 1)).join("</ul>");
+                        }
+
+                        level = parseInt(openLevel);
+
+                        var anchor = titleText.replace(/ /g, "_");
+                        toc += "<li><a href=\"#" + anchor + "\">" + titleText
+                            + "</a></li>";
+
+                        return str;
+                    }
+                );
+
+            if (level) {
+                toc += (new Array(level + 1)).join("</ul>");
+            }
+            console.log(toc);
+            document.getElementById("toc").innerHTML += toc;
+        };</script><script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script></head><body class="markdown-body"><div class="header"><img src="/public/avatar.png" alt="avatar" class="headerImage"><h1><a href="/index.html">Dragutin Sredojevic</a></h1></div><hr><h2>Simple RSA</h2>2020-12-11<br>RSA (Rivest–Shamir–Adleman) is an algorithm used by modern computers to encrypt and decrypt messages. It is an asymmetric cryptographic algorithm.<hr><h3>Table of contents:</h3><div id="toc"></div><hr><div id="contents"><h1 id="introduction">Introduction</h1><p>Security of the whole world depends upon prime numbers which are essential part of RSA algorithm. Given two very large prime numbers &#92;&#40;p&#44;&#32;q&#92;&#41;, it is easy to calculate their product &#92;&#40;n&#61;&#32;p&#42;q&#92;&#41;, but given large enough &#92;&#40;n&#92;&#41; it is impossible to find &#92;&#40;p&#44;&#32;q&#92;&#41; in reasonable amount of time.</p><p>Importance of this is captured in the fact that if &#92;&#40;p&#44;&#32;q&#92;&#41; are the prime numbers you can easily calculate totient function &#92;&#40;&#92;phi&#40;n&#41;&#61;&#92;phi&#40;p&#42;q&#41;&#61;&#92;phi&#40;p&#41;&#42;&#92;phi&#40;q&#41;&#61;&#40;p&#45;&#49;&#41;&#42;&#40;q&#45;&#49;&#41;&#92;&#41;, which would otherwise be impossible to calculate. Totient function &#92;&#40;&#92;phi&#92;&#41; is used for obtaining private key.</p><h1 id="source-code">Source code</h1><ol><li>Choose &#92;&#40;p&#92;&#41; and &#92;&#40;q&#92;&#41; prime numbers such that &#92;&#40;n&#61;pq&#92;&#41; is of required size, ie. 1024 bit.</li><li>Calculate totient function &#92;&#40;&#92;phi&#92;&#41; for &#92;&#40;n&#92;&#41;</li><li>Choose exponent &#92;&#40;e&#44;&#32;&#49;&#60;e&#60;&#92;phi&#32;&#92;&#41;, such that &#92;&#40;gcd&#40;e&#44;&#92;phi&#41;&#32;&#61;&#32;&#49;&#32;&#92;&#41;. Typical exponent values &#92;&#40;&#92;{&#51;&#44;&#32;&#53;&#44;&#32;&#49;&#55;&#44;&#32;&#50;&#53;&#55;&#44;&#32;&#54;&#53;&#53;&#51;&#55;&#92;}&#92;&#41;, note that they are prime numbers!</li><li>Compute secret exponent &#92;&#40;d&#44;&#32;&#49;&#32;&#60;&#32;d&#32;&#60;&#32;&#92;phi&#92;&#41; such that &#92;&#40;e&#42;d&#92;equiv&#32;&#49;&#92;mod&#92;phi&#92;&#41;. That is find &#92;&#40;e&#94;{&#45;&#49;}&#92;&#41; such that &#92;&#40;d&#92;equiv&#32;e&#94;{&#45;&#49;}&#92;mod&#92;phi&#92;&#41;.</li></ol><pre><code class="language-python"><span class="hljs-comment"># 1.</span>
+p = <span class="hljs-number">5399</span>
+q = <span class="hljs-number">5407</span>
+n = p*q
+
+<span class="hljs-comment"># 2.</span>
+phi = (p-<span class="hljs-number">1</span>)*(q-<span class="hljs-number">1</span>)
+
+<span class="hljs-comment"># 3. </span>
+e = <span class="hljs-number">11</span>
+
+<span class="hljs-comment"># 4.</span>
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">egcd</span>(<span class="hljs-params">a, b</span>):</span>
+    u = [<span class="hljs-number">1</span>, <span class="hljs-number">0</span>]
+    w = [<span class="hljs-number">0</span>, <span class="hljs-number">1</span>]
+
+    <span class="hljs-keyword">while</span>(b != <span class="hljs-number">0</span>):
+        q = <span class="hljs-built_in">int</span>(a/b)
+        u = [u[<span class="hljs-number">1</span>], u[<span class="hljs-number">0</span>] - u[<span class="hljs-number">1</span>] * q]
+        w = [w[<span class="hljs-number">1</span>], w[<span class="hljs-number">0</span>] - w[<span class="hljs-number">1</span>] * q]
+        m = a % b
+        a = b
+        b = m
+    <span class="hljs-keyword">return</span> [u[<span class="hljs-number">0</span>], w[<span class="hljs-number">0</span>], a]
+
+[u, ei, a] = egcd(phi, e)
+print(<span class="hljs-string">&#x27;gcd(phi, e) = {0}&#x27;</span>.<span class="hljs-built_in">format</span>(a))
+d = ei
+
+<span class="hljs-keyword">if</span>(ei &lt; <span class="hljs-number">0</span>):
+    d += phi
+
+print(<span class="hljs-string">&#x27;Private key: ({0},{1})&#x27;</span>.<span class="hljs-built_in">format</span>(d, n))
+print(<span class="hljs-string">&#x27;Public key: ({0},{1})&#x27;</span>.<span class="hljs-built_in">format</span>(e, n))
+
+<span class="hljs-comment">#test</span>
+<span class="hljs-keyword">if</span> (e * d) % phi != <span class="hljs-number">1</span>:
+    print(<span class="hljs-string">&#x27;Private key is not valid!&#x27;</span>)
+</code></pre><pre><code>gcd(phi, e) = 1
+Private key: (7958615,29192393)
+Public key: (11,29192393)</code></pre><p>Calculated values &#92;&#40;p&#44;&#32;q&#44;&#32;&#92;phi&#44;&#32;d&#92;&#41; are kept <strong>secret</strong>! Public key &#92;&#40;&#40;e&#44;&#32;n&#41;&#92;&#41;. Private key &#92;&#40;&#40;d&#44;&#32;n&#41;&#92;&#41;.</p><pre><code class="language-python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">print_bytes</span>(<span class="hljs-params">o, l</span>):</span>
+    mo = [x.to_bytes(l, <span class="hljs-string">&#x27;little&#x27;</span>) <span class="hljs-keyword">for</span> x <span class="hljs-keyword">in</span> o]
+    mo = [<span class="hljs-built_in">int</span>.from_bytes(x[i:i+<span class="hljs-number">1</span>], <span class="hljs-string">&#x27;little&#x27;</span>) <span class="hljs-keyword">for</span> x <span class="hljs-keyword">in</span> mo <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">0</span>,<span class="hljs-built_in">len</span>(x))]
+    print(<span class="hljs-built_in">bytes</span>(mo).<span class="hljs-built_in">hex</span>())
+
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">exp_mod</span>(<span class="hljs-params">a, e, n</span>):</span>
+    <span class="hljs-keyword">return</span> <span class="hljs-built_in">pow</span>(a, e, n)
+
+<span class="hljs-comment">#original message</span>
+m = <span class="hljs-string">&quot;RSA is fun when it works!&quot;</span>
+
+<span class="hljs-comment">#convert message to integer representation</span>
+o = [<span class="hljs-built_in">ord</span>(x) <span class="hljs-keyword">for</span> x <span class="hljs-keyword">in</span> m]
+print(<span class="hljs-string">&#x27;original:&#x27;</span>)
+print_bytes(o, <span class="hljs-number">1</span>)
+
+<span class="hljs-comment">#encrypt</span>
+c = [exp_mod(x, e, n) <span class="hljs-keyword">for</span> x <span class="hljs-keyword">in</span> o]
+print(<span class="hljs-string">&#x27;cipher:&#x27;</span>)
+print_bytes(c, <span class="hljs-number">4</span>)
+
+<span class="hljs-comment">#decrypt</span>
+o1 = [exp_mod(x, d, n) <span class="hljs-keyword">for</span> x <span class="hljs-keyword">in</span> c]
+
+<span class="hljs-comment">#convert back to message</span>
+t = <span class="hljs-string">&#x27;&#x27;</span>.join([<span class="hljs-built_in">chr</span>(x) <span class="hljs-keyword">for</span> x <span class="hljs-keyword">in</span> o1])
+print(<span class="hljs-string">&#x27;message:&#x27;</span>)
+print(t)</code></pre><pre><code>original:
+5253412069732066756e207768656e20697420776f726b7321
+cipher:
+eb776101dd11b200743e6c01c76af900ef7d5c01712a7201c76af900ace5a201b2c47e01c5250c00c76af90044733c005338430156791401c5250c00c76af900ef7d5c01f6c08f00c76af90044733c00902288010ce59500b4337200712a720190456601
+message:
+RSA is fun when it works!</code></pre><pre><code class="language-python"></code></pre></div><hr><h3><a href="/index.html">Back</a></h3><hr><footer><div>@Copyright <b>Nitugard</b> All Rights Reserved.</div></footer></body></html>

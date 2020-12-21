@@ -1,128 +1,32 @@
-﻿<!DOCTYPE html>
+﻿<!DOCTYPE html><html lang="en" xmlns="http://www.w3.org/1999/xhtml"><head><meta charset="utf-8"><link rel="icon" type="image/png" href="/public/favicon.ico"><meta name="viewport" content="width=device-width,initial-scale=1"><link rel="stylesheet" href="/styles/global.css"><meta name="description" content=""><title>Nitugard</title><script>window.onload = function () {
+            var toc = "";
+            var level = 0;
+            console.log(document.getElementById("contents").innerHTML);
+            document.getElementById("contents").innerHTML =
+                document.getElementById("contents").innerHTML.replace(
+                    /<h([\d \"\=A-z]+)>([^<]+)<\/h([\d])>/gi,
+                    function (str, openLevel, titleText, closeLevel) {
+                        console.log(titleText);
+ 
+                        if (openLevel > level) {
+                            toc += (new Array(openLevel - level + 1)).join("<ul>");
+                        } else if (openLevel < level) {
+                            toc += (new Array(level - openLevel + 1)).join("</ul>");
+                        }
 
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
-<head>
-    <meta charset="utf-8" />
+                        level = parseInt(openLevel);
 
-    <link rel="icon" type="image/png" href="/public/favicon.ico" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="/styles/global.css">
-    <meta name="description" content="" />
-    <title>Nitugard</title>
-    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+                        var anchor = titleText.replace(/ /g, "_");
+                        toc += "<li><a href=\"#" + anchor + "\">" + titleText
+                            + "</a></li>";
 
-</head>
-<body class="markdown-body">
-    <div class="header">
-        <img src="/public/avatar.png" alt="avatar" class="headerImage"></img>
-        <h1>
-            <a href="/index.html">Dragutin Sredojevic</a>
-        </h1>
-    </div>
-    <hr />
-    <h2>Automation Introduction</h2>
-    <p>2020-01-12</p>
+                        return str;
+                    }
+                );
 
-    
-    <hr />
-    <div><h1 id="introduction">Introduction</h1>
-<p>Automation is an act/technique or technology used when making a process more automatic than before, usually with minimal human assistance. </p>
-<p><em>Automation applied to an inefficient operation will magnify the inefficiency! - Bill Gates</em></p>
-<p>Automatic systems are part of our daily lives, you can probably find atleast one in your home that is man-made! Hint: boiler. Without this invention how would you know when the water temperature is just right? I guess you would have to touch water with your bare hand now and then and turn boiler on and off based on that and in the end you would probably still make an error. This less efficient system is called <em>non automatic system</em>. Classifcation of systems in automation is explained in the later section.</p>
-<p>But what about automatic systems that are not man made? Are there any? Yes! Nature knew well before us that automation is the way to go and our bodies are the very proof! Every cell, organ that is part of body needs to have temperature inside well defined limits, it is duty of one complex system (body) to regulate that without any outside intervention. </p>
-<h2 id="what-exactly-is-system">What exactly is system?</h2>
-<p><strong>System</strong> is an organized separated <em>set</em> of interconnected <em>elements</em> forming some functional whole, with specific goal in mind.</p>
-<p>We could talk about all different kinds of systems(Biological, Social, Techical, Economical...), but most notable are:
-<strong>Physical System</strong> and <strong>Mathematical System</strong>. Key difference between these two systems is that they operate on different elements that are part of different sets - space. We can define them like so:</p>
-<ul>
-<li><strong>Physical System</strong> is a <em>system</em> where <em>elements</em> are substance and energy. They form a <em>set</em> which is said to be part of physical space.</li>
-<li><strong>Mathematical System</strong> is a <em>system</em> where <em>elements</em> are connected by certain axioms. They form a <em>set</em> which is said to be part of mathematical space.</li>
-<li><strong>Organized Physical System</strong> is a collection of <em>subsystems</em> interconnected in some functional whole, with specific goal in mind. This is achieved with information/energy or matter exchange between <em>subsystems</em>.</li>
-</ul>
-<p>Most important characterstics of the <em>system</em> is his <em>structure</em>.
-<strong>Structure</strong> of the <em>system</em> covers all his <em>subsystems</em> with all their inner and outer connections.</p>
-<p><strong>Model</strong> of the physical system is an idealized, fictive system, that retains properties of the real system important for its analysis.</p>
-<p><strong>Mathematical model</strong> of the physical system describes relation between input and output in a formal mathematical way.</p>
-<h2 id="system-state">System state</h2>
-<p><strong>State</strong> of the system represents internal configuration/properties of its structure at given time and is a result of the inital state of the system and corresponding applied inputs.</p>
-<p>State of the system could be <em>deterministic</em> or <em>non deterministic</em> - <strong>stochastic</strong>. In determinstic systems state would always be the same at given point for the same given set of inputs and initial coondition, while this is not true for stochastic systems.</p>
-<p><strong>Inputs of the system</strong> are external substantial effects that affect given system. They are used to change the state of the system.</p>
-<p>$$x_{input}=\begin{bmatrix}x_1\\x_2\\\vdots\\x_n\end{bmatrix}=x_i(t)$$</p>
-<p><strong>Outputs of the system</strong> are the results of the given system for which we are interested. Output is affected by the input and the initial state of the system.</p>
-<p>$$x_{output}=\begin{bmatrix}x_1\\x_2\\\vdots\\x_n\end{bmatrix}=x_o(t)$$</p>
-<p><strong>System response</strong> is time dependence between input and output.</p>
-<p><em>Newton once thought that our world was deterministic, now it may or may not be true, that would be very hard for us to prove. Let&#39;s instead have fun imagining for a second that it is deterministic so if one knew the inital state of our world(universe) - which is to say at the very beginning then the state at every point in time would be known as well. ~~In this case every event could be predicted~~. On the other hand Einstain wasn&#39;t very fond of an idea that our world was random. What is your preference?</em></p>
-<h2 id="signals">Signals</h2>
-<p>In automation signals are used to enable communication between systems and their elements. Communication system must have <em>transmitter</em>, <em>channel</em>, <em>receiver</em>, <em>processing unit</em>. Where processing unit is optional.
-<em>Signals</em> that try to disturb the system from achieving desired result are called <strong>Disturbances</strong> of the system. They usually occur outside of the system and are stochastic in nature. </p>
-<p><a href="/posts/signals">SignalsInDepth</a></p>
-<h2 id="scheme">Scheme</h2>
-<p><strong>Functional scheme</strong> is graphical representation of functional relations between the system parts.</p>
-<p><img src="/public/assets/automation/func-scheme-subliminal.jpg" alt="FIG 1"></p>
-<p>Figure 1 is an example of a functional scheme for a silent subliminal presentation. In this scheme you can see that input of this system is the audio signal produces by the microphone <strong>31</strong>. This signal is then processed by the system in such a way so that the output is now translated 14,500 Hz higher in frequency. Output could then be stored or fed into a speaker. This scheme is taken from a patent numbered <em>US5159703A</em> by Oliver M. Lowery. </p>
-<h2 id="diagrams">Diagrams</h2>
-<p><strong>Diagram</strong> is symbolical representation of the system where arrows represent inputs and outputs of the system.</p>
-<p><strong>Structure diagram</strong> is a detailed <em>diagram</em> with symbolical represention of the structure with all its units and relations.</p>
-<p>Examples of elementary diagrams:</p>
-<ul>
-<li>Serial </li>
-</ul>
-<p><img src="/public/assets/automation/serial-diagram.svg" alt="Serial"></p>
-<ul>
-<li>Serial parallel</li>
-</ul>
-<p><img src="/public/assets/automation/parallel-diagram.svg" alt="Serial parallel"></p>
-<ul>
-<li>Feedback</li>
-</ul>
-<p><img src="/public/assets/automation/feedback-diagram.svg" alt="Feedback"></p>
-<h1 id="automation">Automation</h1>
-<p>Not even best constructed airplanes can fly themselves alone. In order for a plane to fly towards the desired destination 
-some sort of control is required(ie. autopilot, pilot). </p>
-<p>Well airplanes are made of really complex systems, surely there is a simpler system which can achieve desired results without outside control? 
--Short answer: No! Try to think of any such system.
-Boiler!!!
--Boiler is already a system that contains control subsystem. If you remove control subsystem boiler wouldn&#39;t do anything or you wouldn&#39;t get desired results.</p>
-<p>Put simply: You can&#39;t expect object to behave like you desire without some sort of control over that object.</p>
-<p>So what exactly is the object?
-<strong>Object</strong> in automation represents <em>system</em> that we wish to control in order to get desired results. Such objects require <strong>control system</strong> and these objects are called <strong>controlled objects</strong>. The purpose of <em>control system</em> is to control the <em>object</em> in such way so that the <em>controlled object</em> behaviour is close as possible to desired. System that is responsible for updating/changing <em>controlled object</em> behaviour is called <strong>processing unit</strong>. </p>
-<p>Systems that contain <em>control part</em> and their respective <em>processing unit</em> are called <strong>control systems</strong> while systems that contain <em>control system</em> and their respective <em>controlled object</em> are called <strong>automatic system</strong>.</p>
-<p><img src="/public/assets/automation/automatic-sys.svg" alt="AutomaticSystem"></p>
-<h2 id="types-of-automatic-systems">Types of automatic systems</h2>
-<ol>
-<li>Non-automatic system - system in which human is the only control system</li>
-<li>Semi-automatic system - system in which huamn is the part of the control system</li>
-<li>Automatic system - human is not port of the control system</li>
-</ol>
-<h3 id="open-automatic-system">Open automatic system</h3>
-<p>Main assumption of this system is that <em>disturbances</em> are not chnaging over time, ie. they are constant. Thus input is just formed based on desired output.</p>
-<p>$$x_{input}=x_{input}(x_{output})$$</p>
-<p>Disturbances in some cases could be measured and compensated for, in which case the system is called open automatic system with compensation.</p>
-<p>$$x_{input}=x_{input}(x_{output}, x_{disturbance})$$</p>
-<p>In cases of ideal measurment of disturbance, ideal behaviour of systems that compensate for that error is achievable.</p>
-<p><img src="/public/assets/automation/open-sys.svg" alt="OpenAutomaticSystem"></p>
-<h3 id="closed-automatic-system">Closed automatic system</h3>
-<p><em>Disturbances</em> in these systems are allowed to change with time. Thus input is formed based on error in output.</p>
-<p>$$x_{input}=x_{input}(x_{desired output}-x_{output})$$</p>
-<p>Since in these systems we wait for error to occur before changing input, ideal behaviour of such systems is not possible.</p>
-<p>Control system can guarantee error compensation only in cases where that error is well below threshold.</p>
-<p><img src="/public/assets/automation/closed-sys.svg" alt="ClosedAutomaticSystem"></p>
-<h3 id="open-and-closed-automatic-system">Open and closed automatic system</h3>
-<p>Input for such automatic system is formed by measuring and compensating for disturbances and error in object behaviour.Both direct and indirect compensation is included in this system and thanks to indirect compensation even disturbances that are not measured by direct compensation are accounted for while making a system more stable then before.</p>
-<p>$$x_{input}=x_{input}(x_{desired output}-x_{output}, x_{disturbance})$$</p>
-<p>This <em>combined</em> automatic system is much more complex and stable then just open or closed automatic system.</p>
-<p><img src="/public/assets/automation/comb-sys.svg" alt="CombinedAutomaticSystem"></p>
-<h1 id="summary">Summary</h1>
-<p>That would be all folks as this was only supposed to be an introduction into the world of automation! If you yearn to learn more check out next topic:
-<a href="/automation-model/">Modelling Automatic Systems</a></p>
-</div>
-    <hr />
-    <h3><a href="/index.html">Back</a></h3>
-    <hr />
-    <footer>
-        <div>
-            @Copyright <b>Nitugard</b> All Rights Reserved.
-        </div>
-    </footer>
-</body>
-</html>
+            if (level) {
+                toc += (new Array(level + 1)).join("</ul>");
+            }
+            console.log(toc);
+            document.getElementById("toc").innerHTML += toc;
+        };</script><script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script></head><body class="markdown-body"><div class="header"><img src="/public/avatar.png" alt="avatar" class="headerImage"><h1><a href="/index.html">Dragutin Sredojevic</a></h1></div><hr><h2>Automation Introduction</h2>2020-12-01<br><hr><h3>Table of contents:</h3><div id="toc"></div><hr><div id="contents"><h1 id="introduction">Introduction</h1><p>Automation is an act/technique or technology used when making a process more automatic than before, usually with minimal human assistance.</p><p><em>Automation applied to an inefficient operation will magnify the inefficiency! - Bill Gates</em></p><p>Automatic systems are part of our daily lives, you can probably find atleast one in your home that is man-made! Hint: boiler. Without this invention how would you know when the water temperature is just right? I guess you would have to touch water with your bare hand now and then and turn boiler on and off based on that and in the end you would probably still make an error. This less efficient system is called <em>non automatic system</em>. Classifcation of systems in automation is explained in the later section.</p><p>But what about automatic systems that are not man made? Are there any? Yes! Nature knew well before us that automation is the way to go and our bodies are the very proof! Every cell, organ that is part of body needs to have temperature inside well defined limits, it is duty of one complex system (body) to regulate that without any outside intervention.</p><h2 id="what-exactly-is-system">What exactly is system?</h2><p><strong>System</strong> is an organized separated <em>set</em> of interconnected <em>elements</em> forming some functional whole, with specific goal in mind.</p><p>We could talk about all different kinds of systems(Biological, Social, Techical, Economical...), but most notable are: <strong>Physical System</strong> and <strong>Mathematical System</strong>. Key difference between these two systems is that they operate on different elements that are part of different sets - space. We can define them like so:</p><ul><li><strong>Physical System</strong> is a <em>system</em> where <em>elements</em> are substance and energy. They form a <em>set</em> which is said to be part of physical space.</li><li><strong>Mathematical System</strong> is a <em>system</em> where <em>elements</em> are connected by certain axioms. They form a <em>set</em> which is said to be part of mathematical space.</li><li><strong>Organized Physical System</strong> is a collection of <em>subsystems</em> interconnected in some functional whole, with specific goal in mind. This is achieved with information/energy or matter exchange between <em>subsystems</em>.</li></ul><p>Most important characterstics of the <em>system</em> is his <em>structure</em>. <strong>Structure</strong> of the <em>system</em> covers all his <em>subsystems</em> with all their inner and outer connections.</p><p><strong>Model</strong> of the physical system is an idealized, fictive system, that retains properties of the real system important for its analysis.</p><p><strong>Mathematical model</strong> of the physical system describes relation between input and output in a formal mathematical way.</p><h2 id="system-state">System state</h2><p><strong>State</strong> of the system represents internal configuration/properties of its structure at given time and is a result of the inital state of the system and corresponding applied inputs.</p><p>State of the system could be <em>deterministic</em> or <em>non deterministic</em> - <strong>stochastic</strong>. In determinstic systems state would always be the same at given point for the same given set of inputs and initial coondition, while this is not true for stochastic systems.</p><p><strong>Inputs of the system</strong> are external substantial effects that affect given system. They are used to change the state of the system.</p><p>&#36;&#36;x&#95;{input}&#61;&#92;begin{bmatrix}x&#95;&#49;&#92;&#92;x&#95;&#50;&#92;&#92;&#92;vdots&#92;&#92;x&#95;n&#92;end{bmatrix}&#61;x&#95;i&#40;t&#41;&#36;&#36;</p><p><strong>Outputs of the system</strong> are the results of the given system for which we are interested. Output is affected by the input and the initial state of the system.</p><p>&#36;&#36;x&#95;{output}&#61;&#92;begin{bmatrix}x&#95;&#49;&#92;&#92;x&#95;&#50;&#92;&#92;&#92;vdots&#92;&#92;x&#95;n&#92;end{bmatrix}&#61;x&#95;o&#40;t&#41;&#36;&#36;</p><p><strong>System response</strong> is time dependence between input and output.</p><p><em>Newton once thought that our world was deterministic, now it may or may not be true, that would be very hard for us to prove. Let&#39;s instead have fun imagining for a second that it is deterministic so if one knew the inital state of our world(universe) - which is to say at the very beginning then the state at every point in time would be known as well. ~~In this case every event could be predicted~~. On the other hand Einstain wasn&#39;t very fond of an idea that our world was random. What is your preference?</em></p><h2 id="signals">Signals</h2><p>In automation signals are used to enable communication between systems and their elements. Communication system must have <em>transmitter</em>, <em>channel</em>, <em>receiver</em>, <em>processing unit</em>. Where processing unit is optional. <em>Signals</em> that try to disturb the system from achieving desired result are called <strong>Disturbances</strong> of the system. They usually occur outside of the system and are stochastic in nature.</p><p><a href="/posts/signals">SignalsInDepth</a></p><h2 id="scheme">Scheme</h2><p><strong>Functional scheme</strong> is graphical representation of functional relations between the system parts.</p><p><img src="/public/assets/automation/func-scheme-subliminal.jpg" alt="FIG 1"></p><p>Figure 1 is an example of a functional scheme for a silent subliminal presentation. In this scheme you can see that input of this system is the audio signal produces by the microphone <strong>31</strong>. This signal is then processed by the system in such a way so that the output is now translated 14,500 Hz higher in frequency. Output could then be stored or fed into a speaker. This scheme is taken from a patent numbered <em>US5159703A</em> by Oliver M. Lowery.</p><h2 id="diagrams">Diagrams</h2><p><strong>Diagram</strong> is symbolical representation of the system where arrows represent inputs and outputs of the system.</p><p><strong>Structure diagram</strong> is a detailed <em>diagram</em> with symbolical represention of the structure with all its units and relations.</p><p>Examples of elementary diagrams:</p><ul><li>Serial</li></ul><p><img src="/public/assets/automation/serial-diagram.svg" alt="Serial"></p><ul><li>Serial parallel</li></ul><p><img src="/public/assets/automation/parallel-diagram.svg" alt="Serial parallel"></p><ul><li>Feedback</li></ul><p><img src="/public/assets/automation/feedback-diagram.svg" alt="Feedback"></p><h1 id="automation">Automation</h1><p>Not even best constructed airplanes can fly themselves alone. In order for a plane to fly towards the desired destination some sort of control is required(ie. autopilot, pilot).</p><p>Well airplanes are made of really complex systems, surely there is a simpler system which can achieve desired results without outside control? -Short answer: No! Try to think of any such system. Boiler!!! -Boiler is already a system that contains control subsystem. If you remove control subsystem boiler wouldn&#39;t do anything or you wouldn&#39;t get desired results.</p><p>Put simply: You can&#39;t expect object to behave like you desire without some sort of control over that object.</p><p>So what exactly is the object? <strong>Object</strong> in automation represents <em>system</em> that we wish to control in order to get desired results. Such objects require <strong>control system</strong> and these objects are called <strong>controlled objects</strong>. The purpose of <em>control system</em> is to control the <em>object</em> in such way so that the <em>controlled object</em> behaviour is close as possible to desired. System that is responsible for updating/changing <em>controlled object</em> behaviour is called <strong>processing unit</strong>.</p><p>Systems that contain <em>control part</em> and their respective <em>processing unit</em> are called <strong>control systems</strong> while systems that contain <em>control system</em> and their respective <em>controlled object</em> are called <strong>automatic system</strong>.</p><p><img src="/public/assets/automation/automatic-sys.svg" alt="AutomaticSystem"></p><h2 id="types-of-automatic-systems">Types of automatic systems</h2><ol><li>Non-automatic system - system in which human is the only control system</li><li>Semi-automatic system - system in which huamn is the part of the control system</li><li>Automatic system - human is not port of the control system</li></ol><h3 id="open-automatic-system">Open automatic system</h3><p>Main assumption of this system is that <em>disturbances</em> are not chnaging over time, ie. they are constant. Thus input is just formed based on desired output.</p><p>&#36;&#36;x&#95;{input}&#61;x&#95;{input}&#40;x&#95;{output}&#41;&#36;&#36;</p><p>Disturbances in some cases could be measured and compensated for, in which case the system is called open automatic system with compensation.</p><p>&#36;&#36;x&#95;{input}&#61;x&#95;{input}&#40;x&#95;{output}&#44;&#32;x&#95;{disturbance}&#41;&#36;&#36;</p><p>In cases of ideal measurment of disturbance, ideal behaviour of systems that compensate for that error is achievable.</p><p><img src="/public/assets/automation/open-sys.svg" alt="OpenAutomaticSystem"></p><h3 id="closed-automatic-system">Closed automatic system</h3><p><em>Disturbances</em> in these systems are allowed to change with time. Thus input is formed based on error in output.</p><p>&#36;&#36;x&#95;{input}&#61;x&#95;{input}&#40;x&#95;{desired&#32;output}&#45;x&#95;{output}&#41;&#36;&#36;</p><p>Since in these systems we wait for error to occur before changing input, ideal behaviour of such systems is not possible.</p><p>Control system can guarantee error compensation only in cases where that error is well below threshold.</p><p><img src="/public/assets/automation/closed-sys.svg" alt="ClosedAutomaticSystem"></p><h3 id="open-and-closed-automatic-system">Open and closed automatic system</h3><p>Input for such automatic system is formed by measuring and compensating for disturbances and error in object behaviour.Both direct and indirect compensation is included in this system and thanks to indirect compensation even disturbances that are not measured by direct compensation are accounted for while making a system more stable then before.</p><p>&#36;&#36;x&#95;{input}&#61;x&#95;{input}&#40;x&#95;{desired&#32;output}&#45;x&#95;{output}&#44;&#32;x&#95;{disturbance}&#41;&#36;&#36;</p><p>This <em>combined</em> automatic system is much more complex and stable then just open or closed automatic system.</p><p><img src="/public/assets/automation/comb-sys.svg" alt="CombinedAutomaticSystem"></p><h1 id="summary">Summary</h1><p>That would be all folks as this was only supposed to be an introduction into the world of automation! If you yearn to learn more check out next topic: <a href="/automation-model/">Modelling Automatic Systems</a></p></div><hr><h3><a href="/index.html">Back</a></h3><hr><footer><div>@Copyright <b>Nitugard</b> All Rights Reserved.</div></footer></body></html>

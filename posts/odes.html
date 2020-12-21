@@ -1,0 +1,32 @@
+﻿<!DOCTYPE html><html lang="en" xmlns="http://www.w3.org/1999/xhtml"><head><meta charset="utf-8"><link rel="icon" type="image/png" href="/public/favicon.ico"><meta name="viewport" content="width=device-width,initial-scale=1"><link rel="stylesheet" href="/styles/global.css"><meta name="description" content="Ordinary differential equation(ODE) is a differential equation containing one or more functions of one independent variable and the derivatives of those functions."><title>Nitugard</title><script>window.onload = function () {
+            var toc = "";
+            var level = 0;
+            console.log(document.getElementById("contents").innerHTML);
+            document.getElementById("contents").innerHTML =
+                document.getElementById("contents").innerHTML.replace(
+                    /<h([\d \"\=A-z]+)>([^<]+)<\/h([\d])>/gi,
+                    function (str, openLevel, titleText, closeLevel) {
+                        console.log(titleText);
+ 
+                        if (openLevel > level) {
+                            toc += (new Array(openLevel - level + 1)).join("<ul>");
+                        } else if (openLevel < level) {
+                            toc += (new Array(level - openLevel + 1)).join("</ul>");
+                        }
+
+                        level = parseInt(openLevel);
+
+                        var anchor = titleText.replace(/ /g, "_");
+                        toc += "<li><a href=\"#" + anchor + "\">" + titleText
+                            + "</a></li>";
+
+                        return str;
+                    }
+                );
+
+            if (level) {
+                toc += (new Array(level + 1)).join("</ul>");
+            }
+            console.log(toc);
+            document.getElementById("toc").innerHTML += toc;
+        };</script><script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script></head><body class="markdown-body"><div class="header"><img src="/public/avatar.png" alt="avatar" class="headerImage"><h1><a href="/index.html">Dragutin Sredojevic</a></h1></div><hr><h2>ODE</h2>2020-12-12<br>Ordinary differential equation(ODE) is a differential equation containing one or more functions of one independent variable and the derivatives of those functions.<hr><h3>Table of contents:</h3><div id="toc"></div><hr><div id="contents"><h1 id="introduction">Introduction</h1><p>Ordinary differential equation - ODE. Contrary to ODE&#39;s are partial differential equations - PDE&#39;s. Difference between ordinary and partial:</p><ol><li>ODE&#39;s are easier to solve</li><li>ODE&#39;s are simpler to understand</li><li>ODE&#39;s have one independent variable where as partial have more</li><li>ODE&#39;s can only be used to model simple physics phenomenas, ie. spring motion</li></ol><p>ODE is usually in the form: &#36;&#36;&#32;F&#40;x&#44;&#32;y&#44;&#32;y&#39;&#44;y&#39;&#39;&#44;y&#39;&#39;&#39;&#44;&#92;dots&#32;&#44;&#32;y&#94;{&#40;n&#41;}&#41;&#61;&#48;&#32;&#36;&#36;</p><p>Solution to ODE can be found in multiple forms:</p><ol><li>explicit form: &#92;&#40;&#32;y&#61;f&#40;x&#44;C&#95;&#49;&#44;C&#95;&#50;&#44;&#92;dots&#44;C&#95;n&#41;&#32;&#92;&#41;</li><li>implicit form: &#92;&#40;&#32;f&#40;x&#44;y&#44;C&#95;&#49;&#44;C&#95;&#50;&#44;&#92;dots&#44;C&#95;n&#41;&#61;&#48;&#92;&#41;</li><li>parametric form: &#92;&#40;&#32;x&#61;g&#40;t&#44;C&#95;&#49;&#44;C&#95;&#50;&#44;&#92;dots&#44;C&#95;n&#41;&#44;&#92;&#32;y&#61;f&#40;t&#44;&#32;C&#95;&#49;&#44;&#32;C&#95;&#50;&#44;&#92;dots&#44;C&#95;n&#41;&#32;&#92;&#41;</li></ol><p>These solutions represent a family of functions. Particular solution is found if we know the inital conditions, ie. in the case of oscilating spring that could be initial position. These are called initial value problems - IVP.</p><p>For some types of ODE&#39;s, given IVP, we may use certain theorems that tell whether given IVP has solution, and if so whether it is unique. This is very important as we may not be able to solve differential equation but we would like to know whether there exsits solution for our initial values.</p><p>Given a solution one can easily find differential equation by expressing constants through derivatives of the function.</p><h2 id="autonomous-odes">Autonomous ODE&#39;s</h2><p>Differential equation is said to be autonomous if it is given in the form that does not depend(explicitly) on the independent variable. If the independent variable is time, such autonomous equation differential eq. is also called time-invariant.</p><p>Differential equations that model real physical systems usually have independent variable set to time, ie. spring oscilates as time progresses and are expressed as autonomous systems. If, on the other hand, such systems depended on time explicitly, then that would suggest that such system is time dependent, physics laws would seem to change depending on the time.</p><p>&#36;&#36;&#32;F&#40;y&#44;&#32;y&#39;&#44;&#32;y&#39;&#39;&#44;&#32;&#92;dots&#44;&#32;y&#94;{&#40;n&#41;}&#41;&#61;&#48;&#44;&#92;&#32;y&#61;f&#40;t&#41;&#36;&#36;</p></div><hr><h3><a href="/index.html">Back</a></h3><hr><footer><div>@Copyright <b>Nitugard</b> All Rights Reserved.</div></footer></body></html>

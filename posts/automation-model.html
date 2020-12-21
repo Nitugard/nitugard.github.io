@@ -1,52 +1,32 @@
-﻿<!DOCTYPE html>
+﻿<!DOCTYPE html><html lang="en" xmlns="http://www.w3.org/1999/xhtml"><head><meta charset="utf-8"><link rel="icon" type="image/png" href="/public/favicon.ico"><meta name="viewport" content="width=device-width,initial-scale=1"><link rel="stylesheet" href="/styles/global.css"><meta name="description" content="Systems and their models, how to model a system."><title>Nitugard</title><script>window.onload = function () {
+            var toc = "";
+            var level = 0;
+            console.log(document.getElementById("contents").innerHTML);
+            document.getElementById("contents").innerHTML =
+                document.getElementById("contents").innerHTML.replace(
+                    /<h([\d \"\=A-z]+)>([^<]+)<\/h([\d])>/gi,
+                    function (str, openLevel, titleText, closeLevel) {
+                        console.log(titleText);
+ 
+                        if (openLevel > level) {
+                            toc += (new Array(openLevel - level + 1)).join("<ul>");
+                        } else if (openLevel < level) {
+                            toc += (new Array(level - openLevel + 1)).join("</ul>");
+                        }
 
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
-<head>
-    <meta charset="utf-8" />
+                        level = parseInt(openLevel);
 
-    <link rel="icon" type="image/png" href="/public/favicon.ico" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="/styles/global.css">
-    <meta name="description" content="Hobby project" />
-    <title>Nitugard</title>
-    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+                        var anchor = titleText.replace(/ /g, "_");
+                        toc += "<li><a href=\"#" + anchor + "\">" + titleText
+                            + "</a></li>";
 
-</head>
-<body class="markdown-body">
-    <div class="header">
-        <img src="/public/avatar.png" alt="avatar" class="headerImage"></img>
-        <h1>
-            <a href="/index.html">Dragutin Sredojevic</a>
-        </h1>
-    </div>
-    <hr />
-    <h2>Automation Modelling</h2>
-    <p>2017-06-09</p>
+                        return str;
+                    }
+                );
 
-    Hobby project
-    <hr />
-    <div><h1 id="introduction">Introduction</h1>
-<p>In order to efficiently analayze some physical process or behaviour it is neccesary to describe them using math. Math is based on equations that contain already known laws from physics, chemistry, biology...Based on these laws we construct a differential equation that most closesly ressembles behaviour or the process of the system.</p>
-<p>Systems analayzed in this article are time dependent(ie. their state depends on time), and as such are described using differential equations where the time is the only independent variable. Example of such system is some object attached to a spring in a fluid as the location(speed) of the object depends only on time.</p>
-<p>Systems that also depend upon the location in space are described using partial differential equations where the time and coordinates are independent variables. Partial differential equations are much more complex to solve for, hence no partial differential equation will be used throughout article. Example of such system would be temperature in a room.</p>
-<p>In this article we are only concerned with systems that have one input and one ouput. In most cases such systems could be described by differential equation in the form:</p>
-<p>[\phi(t,x_{out}, \dot{x_{out}}, \dots, x_{out}^{(n)}, x_{in}, \dot{x_{in}}, \dots, x_{in}^{(m)} = 0, m\leq n]</p>
-<p>In general form this equation represents system that is nonlinear and nonstationary. Important condition put is that <em>m</em> has to be less or equal to <em>n</em>, if this was not the case system would have an ability to <em>predict</em>.</p>
-<p><strong>Stationary system</strong> or <strong>Time invariant system</strong> is system for which time delay on the input [x_{in}(t+\delta)] directly equates to time delay of the output [x_{out}(t+\delta)]. Relationship between input and output does not depend on time, and is constant.</p>
-<p>[x_{out}(t)=x_{out}(x_{in}(t), t)=x_{out}(x_{in}(t))]</p>
-<p><strong>Linear system</strong> is a system that has additive and homogenous properties. Changing the input in a linear way will change the output in the linear way. If the input [x(t)] produces output [y(t)] and another input [x_{1}(t)] produces output [y_{1}(t)] then the linear combinnations of those inputs will produce linear combinations of those outputs. Homogenous property allows scaling of the input with any constant.</p>
-<p><strong>Linear Time Invariant(LTI)</strong> system is linear and time invariant and as such every <em>LTI</em> system can be described by a single function called its impulse response.</p>
-<h1 id="pendulum">Pendulum</h1>
-<p>Todo</p>
-<p>#</p>
-</div>
-    <hr />
-    <h3><a href="/index.html">Back</a></h3>
-    <hr />
-    <footer>
-        <div>
-            @Copyright <b>Nitugard</b> All Rights Reserved.
-        </div>
-    </footer>
-</body>
-</html>
+            if (level) {
+                toc += (new Array(level + 1)).join("</ul>");
+            }
+            console.log(toc);
+            document.getElementById("toc").innerHTML += toc;
+        };</script><script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script></head><body class="markdown-body"><div class="header"><img src="/public/avatar.png" alt="avatar" class="headerImage"><h1><a href="/index.html">Dragutin Sredojevic</a></h1></div><hr><h2>Automation Modelling</h2>2020-12-07<br>Systems and their models, how to model a system.<hr><h3>Table of contents:</h3><div id="toc"></div><hr><div id="contents"><h1 id="introduction">Introduction</h1><p>In order to efficiently analayze some physical process or behaviour it is neccesary to describe them using math. Math is based on equations that contain already known laws from physics, chemistry, biology...Based on these laws we construct a differential equation that most closesly ressembles behaviour or the process of the system.</p><p>Systems analayzed in this article are time dependent(ie. their state depends on time), and as such are described using differential equations where the time is the only independent variable. Example of such system is some object attached to a spring in a fluid as the location(speed) of the object depends only on time.</p><p>Systems that also depend upon the location in space are described using partial differential equations where the time and coordinates are independent variables. Partial differential equations are much more complex to solve for, hence no partial differential equation will be used throughout article. Example of such system would be temperature in a room.</p><p>In this article we are only concerned with systems that have one input and one ouput. In most cases such systems could be described by differential equation in the form:</p><p>&#36;&#36;&#92;phi&#40;t&#44;x&#95;{out}&#44;&#32;&#92;dot{x&#95;{out}}&#44;&#32;&#92;dots&#44;&#32;x&#95;{out}&#94;{&#40;n&#41;}&#44;&#32;x&#95;{in}&#44;&#32;&#92;dot{x&#95;{in}}&#44;&#32;&#92;dots&#44;&#32;x&#95;{in}&#94;{&#40;m&#41;}&#32;&#61;&#32;&#48;&#44;&#32;m&#92;leq&#32;n&#36;&#36;</p><p>In general form this equation represents system that is nonlinear and nonstationary. Important condition put is that <em>m</em> has to be less or equal to <em>n</em>, if this was not the case system would have an ability to <em>predict</em>.</p><p><strong>Stationary system</strong> or <strong>Time invariant system</strong> is system for which time delay on the input directly equates to time delay of the output. Relationship between input and output does not depend on time, and is constant.</p><p>&#36;&#36;&#91;x&#95;{out}&#40;t&#41;&#61;x&#95;{out}&#40;x&#95;{in}&#40;t&#41;&#44;&#32;t&#41;&#61;x&#95;{out}&#40;x&#95;{in}&#40;t&#41;&#41;&#36;&#36;</p><p><strong>Linear system</strong> is a system that has additive and homogenous properties. Changing the input in a linear way will change the output in the linear way.</p><p><strong>Linear Time Invariant(LTI)</strong> system is linear and time invariant and as such every <em>LTI</em> system can be described by a single function called its impulse response.</p><h1 id="pendulum">Pendulum</h1><p>Todo</p><p>#</p></div><hr><h3><a href="/index.html">Back</a></h3><hr><footer><div>@Copyright <b>Nitugard</b> All Rights Reserved.</div></footer></body></html>

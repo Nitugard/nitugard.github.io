@@ -1,72 +1,32 @@
-﻿<!DOCTYPE html>
+﻿<!DOCTYPE html><html lang="en" xmlns="http://www.w3.org/1999/xhtml"><head><meta charset="utf-8"><link rel="icon" type="image/png" href="/public/favicon.ico"><meta name="viewport" content="width=device-width,initial-scale=1"><link rel="stylesheet" href="/styles/global.css"><meta name="description" content="Hobby project"><title>Nitugard</title><script>window.onload = function () {
+            var toc = "";
+            var level = 0;
+            console.log(document.getElementById("contents").innerHTML);
+            document.getElementById("contents").innerHTML =
+                document.getElementById("contents").innerHTML.replace(
+                    /<h([\d \"\=A-z]+)>([^<]+)<\/h([\d])>/gi,
+                    function (str, openLevel, titleText, closeLevel) {
+                        console.log(titleText);
+ 
+                        if (openLevel > level) {
+                            toc += (new Array(openLevel - level + 1)).join("<ul>");
+                        } else if (openLevel < level) {
+                            toc += (new Array(level - openLevel + 1)).join("</ul>");
+                        }
 
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
-<head>
-    <meta charset="utf-8" />
+                        level = parseInt(openLevel);
 
-    <link rel="icon" type="image/png" href="/public/favicon.ico" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="/styles/global.css">
-    <meta name="description" content="Hobby project" />
-    <title>Nitugard</title>
-    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+                        var anchor = titleText.replace(/ /g, "_");
+                        toc += "<li><a href=\"#" + anchor + "\">" + titleText
+                            + "</a></li>";
 
-</head>
-<body class="markdown-body">
-    <div class="header">
-        <img src="/public/avatar.png" alt="avatar" class="headerImage"></img>
-        <h1>
-            <a href="/index.html">Dragutin Sredojevic</a>
-        </h1>
-    </div>
-    <hr />
-    <h2>Signals</h2>
-    <p>2020-01-12</p>
+                        return str;
+                    }
+                );
 
-    Hobby project
-    <hr />
-    <div><h1 id="introduction">Introduction</h1>
-<p><img src="/public/assets/automation/William_Powell_Frith_The_signal_1858.jpg" alt="WilliamPowellFrithTheSignal1858.jpg"></p>
-<p>In &quot;The Signal&quot; painting by William Powell Frith, a woman sends a signal by waving a handkerchief. Taken from <a href="https://en.wikipedia.org/wiki/Signal#Classification">Wikipedia:Signals</a>.</p>
-<p>Definition of signal can vary based on the field of research. <strong>Signal</strong> in general context is materialized information.</p>
-<p><em>In information theory calculating signal entropy is of great value. I suggest reading more on this topic.</em></p>
-<h3 id="classification">Classification</h3>
-<p>Signals can depend on many variables, one of them is almost always time.</p>
-<p>[s=s(t)]</p>
-<h4 id="analog-vs-digital">Analog vs Digital</h4>
-<p>An analog signal is any continuous signal for which the time varying feature of the signal is a representation of some other time varying quantity.</p>
-<p>A digital signal is a signal that is being used to represent data as a sequence of discrete values. At any given time it can only take on, at most, one of a finite number of values.</p>
-<p><em>Taken from wikipedia.</em></p>
-<h4 id="deterministic-vs-stochasticrandom">Deterministic vs Stochastic(Random)</h4>
-<p>Deterministic signal can be represented by exact math equation while stochastic can&#39;t.</p>
-<h4 id="energy-vs-power">Energy vs Power</h4>
-<p>Energy signal has finite energy. This finite energy when averaged over infinite period of time will result in zero power.
-Power signal has finite power. This finite power when accumulated over infinite period of time will result in inifite energy.</p>
-<h4 id="even-vs-odd">Even vs Odd</h4>
-<p>Even signal: </p>
-<p>[s(t)=s(-t)]</p>
-<p>Odd signal: </p>
-<p>[s(t)=-s(-t)]</p>
-<h4 id="periodic">Periodic</h4>
-<p>Periodic signals repeat themselves after some period T.</p>
-<p>[s(t)=s(t+T)]</p>
-<h4 id="discrete-vs-continuous">Discrete vs Continuous</h4>
-<p>Signals can be continuous or discrete with respect to time and amplitude. Amplitude discretization is called quantization.</p>
-<p><strong>Digital signal</strong> is discrete signal with quantized amplitude. </p>
-<h5 id="time-discretization">Time discretization</h5>
-<p>Continuous time signals are signals that are defined for every <em>t</em> on given interval. 
-Discrete time signals are signals that are only defined for some values of <em>t</em> in the inverval.</p>
-<h5 id="amplitude-quantization">Amplitude quantization</h5>
-<p>Amplitude quantization refers to process in which amplitude of the signal is truncated, rounded... to some value and in turn producing a set of discrete amplitude values that signal can have. Example: Sound wave must be quantized before computer can use it as computer can only work with discrete sets of numbers.</p>
-<p><img src="/public/assets/automation/analog-signals-to-digital-signals.png" alt="AnalogDigital"></p>
-</div>
-    <hr />
-    <h3><a href="/index.html">Back</a></h3>
-    <hr />
-    <footer>
-        <div>
-            @Copyright <b>Nitugard</b> All Rights Reserved.
-        </div>
-    </footer>
-</body>
-</html>
+            if (level) {
+                toc += (new Array(level + 1)).join("</ul>");
+            }
+            console.log(toc);
+            document.getElementById("toc").innerHTML += toc;
+        };</script><script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script></head><body class="markdown-body"><div class="header"><img src="/public/avatar.png" alt="avatar" class="headerImage"><h1><a href="/index.html">Dragutin Sredojevic</a></h1></div><hr><h2>Signals</h2>2020-12-01<br>Hobby project<hr><h3>Table of contents:</h3><div id="toc"></div><hr><div id="contents"><h1 id="introduction">Introduction</h1><p><img src="/public/assets/automation/William_Powell_Frith_The_signal_1858.jpg" alt="WilliamPowellFrithTheSignal1858.jpg"></p><p>In &quot;The Signal&quot; painting by William Powell Frith, a woman sends a signal by waving a handkerchief. Taken from <a href="https://en.wikipedia.org/wiki/Signal#Classification">Wikipedia:Signals</a>.</p><p>Definition of signal can vary based on the field of research. <strong>Signal</strong> in general context is materialized information.</p><p><em>In information theory calculating signal entropy is of great value. I suggest reading more on this topic.</em></p><h3 id="classification">Classification</h3><p>Signals can depend on many variables, one of them is almost always time.</p><p>&#92;&#91;s&#61;s&#40;t&#41;&#92;&#93;</p><h4 id="analog-vs-digital">Analog vs Digital</h4><p>An analog signal is any continuous signal for which the time varying feature of the signal is a representation of some other time varying quantity.</p><p>A digital signal is a signal that is being used to represent data as a sequence of discrete values. At any given time it can only take on, at most, one of a finite number of values.</p><p><em>Taken from wikipedia.</em></p><h4 id="deterministic-vs-stochasticrandom">Deterministic vs Stochastic(Random)</h4><p>Deterministic signal can be represented by exact math equation while stochastic can&#39;t.</p><h4 id="energy-vs-power">Energy vs Power</h4><p>Energy signal has finite energy. This finite energy when averaged over infinite period of time will result in zero power. Power signal has finite power. This finite power when accumulated over infinite period of time will result in inifite energy.</p><h4 id="even-vs-odd">Even vs Odd</h4><p>Even signal:</p><p>&#92;&#91;s&#40;t&#41;&#61;s&#40;&#45;t&#41;&#92;&#93;</p><p>Odd signal:</p><p>&#92;&#91;s&#40;t&#41;&#61;&#45;s&#40;&#45;t&#41;&#92;&#93;</p><h4 id="periodic">Periodic</h4><p>Periodic signals repeat themselves after some period T.</p><p>&#92;&#91;s&#40;t&#41;&#61;s&#40;t&#43;T&#41;&#92;&#93;</p><h4 id="discrete-vs-continuous">Discrete vs Continuous</h4><p>Signals can be continuous or discrete with respect to time and amplitude. Amplitude discretization is called quantization.</p><p><strong>Digital signal</strong> is discrete signal with quantized amplitude.</p><h5 id="time-discretization">Time discretization</h5><p>Continuous time signals are signals that are defined for every <em>t</em> on given interval. Discrete time signals are signals that are only defined for some values of <em>t</em> in the inverval.</p><h5 id="amplitude-quantization">Amplitude quantization</h5><p>Amplitude quantization refers to process in which amplitude of the signal is truncated, rounded... to some value and in turn producing a set of discrete amplitude values that signal can have. Example: Sound wave must be quantized before computer can use it as computer can only work with discrete sets of numbers.</p><p><img src="/public/assets/automation/analog-signals-to-digital-signals.png" alt="AnalogDigital"></p></div><hr><h3><a href="/index.html">Back</a></h3><hr><footer><div>@Copyright <b>Nitugard</b> All Rights Reserved.</div></footer></body></html>

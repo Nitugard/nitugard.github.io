@@ -1,0 +1,32 @@
+﻿<!DOCTYPE html><html lang="en" xmlns="http://www.w3.org/1999/xhtml"><head><meta charset="utf-8"><link rel="icon" type="image/png" href="/public/favicon.ico"><meta name="viewport" content="width=device-width,initial-scale=1"><link rel="stylesheet" href="/styles/global.css"><meta name="description" content="Properties of the modulus operator, modular arithmetic."><title>Nitugard</title><script>window.onload = function () {
+            var toc = "";
+            var level = 0;
+            console.log(document.getElementById("contents").innerHTML);
+            document.getElementById("contents").innerHTML =
+                document.getElementById("contents").innerHTML.replace(
+                    /<h([\d \"\=A-z]+)>([^<]+)<\/h([\d])>/gi,
+                    function (str, openLevel, titleText, closeLevel) {
+                        console.log(titleText);
+ 
+                        if (openLevel > level) {
+                            toc += (new Array(openLevel - level + 1)).join("<ul>");
+                        } else if (openLevel < level) {
+                            toc += (new Array(level - openLevel + 1)).join("</ul>");
+                        }
+
+                        level = parseInt(openLevel);
+
+                        var anchor = titleText.replace(/ /g, "_");
+                        toc += "<li><a href=\"#" + anchor + "\">" + titleText
+                            + "</a></li>";
+
+                        return str;
+                    }
+                );
+
+            if (level) {
+                toc += (new Array(level + 1)).join("</ul>");
+            }
+            console.log(toc);
+            document.getElementById("toc").innerHTML += toc;
+        };</script><script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script></head><body class="markdown-body"><div class="header"><img src="/public/avatar.png" alt="avatar" class="headerImage"><h1><a href="/index.html">Dragutin Sredojevic</a></h1></div><hr><h2>Modular Arithmetic</h2>2020-12-09<br>Properties of the modulus operator, modular arithmetic.<hr><h3>Table of contents:</h3><div id="toc"></div><hr><div id="contents"><h1 id="introduction">Introduction</h1><p>Since the dawn of time man was fascinated with prime numbers. That tradition continues and we too stand in awe, so much so, that we won&#39;t speak about these almighty numbers.</p><p>What is <strong>modular aritmethic</strong>? Modular aritmethic is based upon modulus operator. Modulus operator returns remainder after division by integer.</p><p>&#36;&#36;a&#61;q&#95;&#49;&#32;&#42;&#32;n&#32;&#43;&#32;r&#92;&#92;&#32;{a}&#92;mod{&#40;n&#41;}&#32;&#61;&#32;r&#36;&#36;</p><p>What is <strong>congruence</strong>? Congruence, <em>in agreement</em> lat. relates numbers based on their remainder. Numbers are said to be congruent modulo N when their remainder are equal.</p><p>&#36;&#36;a&#92;equiv{b&#92;mod&#40;n&#41;}&#36;&#36;</p><p>If two numbers form congruence, then their difference is a number that is some multiple of n. Proof:</p><p>&#36;&#36;a&#61;q&#95;&#49;&#32;&#42;&#32;n&#32;&#43;&#32;r&#92;&#92;&#13;&#10;b&#61;q&#95;&#50;&#32;&#42;&#32;n&#32;&#43;&#32;r&#92;&#92;&#13;&#10;a&#45;b&#32;&#61;&#32;n&#40;q&#95;&#49;&#45;q&#95;&#50;&#41;&#61;qn&#36;&#36;</p><p>What is <strong>congruence class</strong>? Set of every integer that forms congruence. Congruence class is sometimes called residue class.</p><p>What is <strong>least residue</strong>? Least reasidue is smallest integer that forms congruence.</p><p>&#36;&#36;a&#92;equiv{b&#95;{min}&#92;mod&#40;n&#41;}&#36;&#36;</p><h1 id="properties">Properties</h1><p>Modulus operator is only defined for integers including positive and negative. Therefore arithmetic properties must also obey this limit.</p><p>The congruence relation satisfies all the conditions of the equivalence relation. Base properties are listed below:</p><ol><li><p>Reflextivity &#92;&#40;&#32;a&#92;equiv{a&#92;mod{n}}&#32;&#92;&#41;</p></li><li><p>Symmetry &#92;&#40;a&#92;equiv{b&#92;mod{n}}&#32;&#92;&#59;&#32;b&#92;equiv{a&#92;mod{n}}&#32;&#92;&#41;</p></li><li><p>Transitivity &#92;&#40;&#32;a&#92;equiv{b&#92;mod{n}}&#32;&#92;&#32;b&#92;equiv{c&#92;mod{n}}&#32;&#92;&#32;a&#92;equiv{c&#92;mod{n}}&#32;&#92;&#41;</p></li><li><p>Translation &#92;&#40;&#32;a&#32;&#43;&#32;k&#92;equiv{b&#32;&#43;&#32;k&#92;mod{n}}&#32;&#92;&#41;</p></li><li><p>Scaling &#92;&#40;&#32;a&#42;k&#92;equiv{b&#42;k&#92;mod{n}}&#32;&#92;&#41;</p></li><li><p>Addition &#92;&#40;a&#92;equiv{b&#92;mod{n}}&#32;&#92;&#92;&#13;&#10;&#32;c&#92;equiv{d&#92;mod{n}}&#32;&#92;&#92;&#13;&#10;&#32;a&#43;c&#92;equiv{b&#43;d&#92;mod{n}}&#32;&#92;&#92;&#13;&#10;&#32;a&#45;c&#92;equiv{b&#45;d&#92;mod{n}}&#32;&#92;&#41;</p></li><li><p>Multiplication &#92;&#40;a&#92;equiv{b&#92;mod{n}}&#92;&#92;&#13;&#10;&#9;c&#92;equiv{d&#92;mod{n}}&#92;&#92;&#13;&#10;&#9;a&#42;c&#92;equiv{b&#42;d&#92;mod{n}}&#13;&#10;&#92;&#41;</p></li><li><p>Exponentiation &#92;&#40;&#32;a&#94;k&#92;equiv{b&#94;k&#92;mod{n}}&#92;&#32;k&#62;&#48;&#32;&#92;&#41;</p></li><li><p>Polynomial &#92;&#40;&#32;p&#40;a&#41;&#92;equiv{p&#40;b&#41;&#92;mod{n}}&#32;&#92;&#41;</p></li></ol><h1 id="algorithms">Algorithms</h1></div><hr><h3><a href="/index.html">Back</a></h3><hr><footer><div>@Copyright <b>Nitugard</b> All Rights Reserved.</div></footer></body></html>
